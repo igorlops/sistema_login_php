@@ -1,0 +1,55 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar-custom {
+    color: #fff;
+    background-color: #0068b3!important;
+}
+
+.info-navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.perfil-user{
+    background-color: #ccc;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.usuario-logger{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logout a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.logout a:hover{
+    transition:.5s;
+    border-bottom: 1px solid #ffffff;
+}
+
+.list-group-item:hover{
+    transition: .5s!important;
+    background-color: #2f86c4!important;
+    color: #fff;
+}
+
+.isActived {
+    background-color: #2f86c4;
+    color: #fff;
+}
+
+.card-header{
+    background-color:#0068b3;color:#fff;
+}
