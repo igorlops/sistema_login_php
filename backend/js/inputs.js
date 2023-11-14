@@ -55,7 +55,7 @@ async function typeProjetos() {
                     <form id="formprojeto">
                         <input type="text" id="nome_projeto" class="form-control mb-3 col-12" placeholder="Nome do projeto..." aria-label="Nome projeto" aria-describedby="nome-projeto">
                         <input type="text" id="descricao_projeto" class="form-control col-12 mb-3" placeholder="Descrição do projeto..." aria-label="Descrição projeto" aria-describedby="descricao-projeto">
-                        <select class="form-select mb-3" id="selectTecnologias" multiple>
+                        <select class="form-select mb-3" id="tecnologia_projetos" multiple>
                         <option selected>Sem tecnologia</option>`
                         let tecnologias = await checkboxTecnologias();
                         tecnologias.map(e=>{
@@ -118,7 +118,7 @@ async function typeDetalhesCursos() {
             <div class="card-body">
                 <div class="mb-3">
                     <form id="formdetalhecurso">
-                    <select class="form-select mb-3" id="selectTecnologias" multiple>
+                    <select class="form-select mb-3" id="select_cursos_detalhes" multiple>
                     <option selected>Sem cursos</option>`
                     let cursos = await checkboxCursos();
                     cursos.map(e=>{
@@ -156,7 +156,7 @@ function typeCursos() {
                 <div class="mb-3">
                     <form id="formcurso">
                         <input type="text" id="nome_curso" class="form-control mb-3 col-12" placeholder="Nome do curso..." aria-label="Tecnologia" aria-describedby="button-tencologia">
-                        <input type="date" id="tecnologia_curso" class="form-control mb-3 col-12" aria-label="Tecnologia" aria-describedby="button-tencologia">
+                        <input type="date" id="data_curso" class="form-control mb-3 col-12" aria-label="Data curso" aria-describedby="button-tencologia">
                         <input type="text" id="plataforma_estudo" class="form-control mb-3 col-12" placeholder="Plataforma de estudo..." aria-label="Tecnologia" aria-describedby="button-tencologia">
                         <input type="text" id="link_certificado" class="form-control col-12" placeholder="Link do certificado" aria-label="Tecnologia" aria-describedby="button-tencologia">
                         <button type="button" onclick="AdicionarInput('cursos')" class="btn btn-primary mt-5">Adicionar categoria</button>
@@ -243,6 +243,7 @@ function AdicionarInput(str) {
         let nome_projeto = $("#nome_projeto").val()
         let descricao_projeto = $("#descricao_projeto").val()
         let link_repositorio = $("#link_repositorio").val()
+        let tecnologia_projetos = $("#tecnologia_projetos").val()
         let link_servidor = $("#link_servidor").val()
         console.log(nome_projeto,descricao_projeto,link_repositorio,link_servidor)
         let obj = {
@@ -250,6 +251,7 @@ function AdicionarInput(str) {
             "nome_projeto": nome_projeto,
             "descricao_projeto": descricao_projeto,
             "link_repositorio": link_repositorio,
+            "tecnologia_projetos":tecnologia_projetos,
             "link_servidor": link_servidor,
         }
 
@@ -299,14 +301,14 @@ function AdicionarInput(str) {
         .catch(error => console.error("Erro: "+error))
     }
     if(str === "detalhes_cursos"){
-
+        let id_curso = $("#select_cursos_detalhes").val()
         let nome_det_curso = $("#nome_det_curso").val()
         let tecnologia_det_curso = $("#tecnologia_det_curso").val()
         let descricao_det_curso = $("#descricao_det_curso").val()
         let link_certificado_det_curso = $("#link_certificado_det_curso").val()
         console.log(nome_det_curso,tecnologia_det_curso,descricao_det_curso,link_certificado_det_curso)
         let obj = {
-
+            "id_curso":id_curso,
             "nome_det_curso": nome_det_curso,
             "tecnologia_det_curso": tecnologia_det_curso,
             "descricao_det_curso": descricao_det_curso,
@@ -327,13 +329,13 @@ function AdicionarInput(str) {
     }
     if(str === "cursos"){
         let nome_curso = $("#nome_curso").val()
-        let tecnologia_curso = $("#tecnologia_curso").val()
+        let data_curso = $("#data_curso").val()
         let plataforma_estudo = $("#plataforma_estudo").val()
         let link_certificado = $("#link_certificado").val()
 
         let obj = {
             "nome_curso": nome_curso,
-            "tecnologia_curso": tecnologia_curso,
+            "data_curso": data_curso,
             "plataforma_estudo": plataforma_estudo,
             "link_certificado": link_certificado
         }

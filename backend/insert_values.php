@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         // Exemplo: Obter dados do formulário
         $nome_projeto = $data->nome_projeto;
         $descricao_projeto = $data->descricao_projeto;
+        $tecnologia_projetos = $data->tecnologia_projetos;
         $link_repositorio = $data->link_repositorio;
         $link_servidor = $data->link_servidor;
         
@@ -45,10 +46,16 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $objResponse = [
             "nome_projeto"=>$nome_projeto,
             "descricao_projeto"=>$descricao_projeto,
+            "tecnologia_projetos"=>$tecnologia_projetos,
             "link_repositorio"=>$link_repositorio,
             "link_servidor"=>$link_servidor,
             "user_id"=> $_SESSION["user_id"],
         ];
+        $sql = "INSERT INTO projetos (id,nome,descricao,tecnologia,link_codigofonte,link_servidor,user_id) VALUES (null,?,?,?,?,?,?)";
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute(array($nome_projeto,$descricao_projeto,$tecnologia_projetos,$link_repositorio,$objResponse['user_id']));
+
+
         // Exemplo: Enviar uma resposta JSON
         header('Content-Type: application/json');
         echo json_encode(['status' => 'success', 'message' => 'Dados recebidos com sucesso.', 'data' => $objResponse]);
@@ -75,6 +82,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             "tecno_experiencia"=>$tecno_experiencia,
             "user_id"=> $_SESSION["user_id"],
         ];
+        $sql = "INSERT INTO experiencias (id,nome,data_ini,data_fin,empresa,funcao,descricao,tecnologia,user_id) VALUES (null,?,?,?,?,?,?,?,?)";
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute(array($nome_experiencia,$data_ini_curso,$data_fim_curso,$empresa,$funcao,$descricao_experiencia,$tecno_experiencia,$objResponse['user_id']));
+
+
         // Exemplo: Enviar uma resposta JSON
         header('Content-Type: application/json');
         echo json_encode(['status' => 'success', 'message' => 'Dados recebidos com sucesso.', 'data' => $objResponse]);
@@ -82,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     }else if ( $data and isset($data->nome_det_curso)) {
         
         // Exemplo: Obter dados do formulário
+        $id_curso = $data->id_curso;
         $nome_det_curso = $data->nome_det_curso;
         $tecno_det_curso = $data->tecnologia_det_curso;
         $nome = $data->descricao_det_curso;
@@ -89,12 +102,18 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         
         // Realizar operações com os dados recebidos
         $objResponse = [
+            "id_curso" => $id_curso,
             "nome_det_curso"=>$nome_det_curso,
             "tecno_det_curso"=>$tecno_det_curso,
             "descricao_det_curso"=>$descricao_det_curso,
             "link_certificado_det_curso"=>$link_certificado_det_curso,
             "user_id"=> $_SESSION["user_id"],
         ];
+        $sql = "INSERT INTO detalhes_cursos (id,nome,descricao,user_id) VALUES (null,?,?,?)";
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute(array($id_curso,$nome_det_curso,$tecno_det_curso,$descricao_det_curso,$link_certificado_det_curso,$objResponse['user_id']));
+
+
         // Exemplo: Enviar uma resposta JSON
         header('Content-Type: application/json');
         echo json_encode(['status' => 'success', 'message' => 'Dados recebidos com sucesso.', 'data' => $objResponse]);
@@ -103,6 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     } else if ($data and isset($data->nome_curso)) {
         
         // Exemplo: Obter dados do formulário
+        $data_curso = $data->data_curso;
         $nome_curso = $data->nome_curso;
         $tecnoCurso = $data->tecnologia_curso;
         $plataforma = $data->plataforma_estudo;
@@ -111,11 +131,16 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         // Realizar operações com os dados recebidos
         $objResponse = [
             "nome_curso"=>$nome_curso,
-            "tecnoCurso"=>$tecnoCurso,
+            "data_curso"=>$data_curso,
             "plataforma"=>$plataforma,
             "link_certificado"=>$link_certificado,
             "user_id"=> $_SESSION["user_id"],
         ];
+        $sql = "INSERT INTO cursos (id,nome,data,plataforma_estudo,link_certificado,user_id) VALUES (null,?,?,?,?,?)";
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute(array($nome_curso,$data,$plataforma,$link_certificado ,$objResponse['user_id']));
+
+
         // Exemplo: Enviar uma resposta JSON
         header('Content-Type: application/json');
         echo json_encode(['status' => 'success', 'message' => 'Dados recebidos com sucesso.', 'data' => $objResponse]);
