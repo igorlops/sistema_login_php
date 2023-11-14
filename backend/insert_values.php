@@ -46,14 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $objResponse = [
             "nome_projeto"=>$nome_projeto,
             "descricao_projeto"=>$descricao_projeto,
-            "tecnologia_projetos"=>$tecnologia_projetos,
             "link_repositorio"=>$link_repositorio,
             "link_servidor"=>$link_servidor,
             "user_id"=> $_SESSION["user_id"],
         ];
-        $sql = "INSERT INTO projetos (id,nome,descricao,tecnologia,link_codigofonte,link_servidor,user_id) VALUES (null,?,?,?,?,?,?)";
+        $sql = "INSERT INTO projetos (id,nome,descricao,link_codigofonte,link_servidor,user_id) VALUES (null,?,?,?,?,?)";
         $stmt = $conexao->prepare($sql);
-        $stmt->execute(array($nome_projeto,$descricao_projeto,$tecnologia_projetos,$link_repositorio,$objResponse['user_id']));
+        $stmt->execute(array($nome_projeto,$descricao_projeto,$link_repositorio,$link_servidor,$objResponse['user_id']));
 
 
         // Exemplo: Enviar uma resposta JSON
@@ -79,12 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             "empresa"=>$empresa,
             "funcao"=>$funcao,
             "descricao_experiencia"=>$descricao_experiencia,
-            "tecno_experiencia"=>$tecno_experiencia,
             "user_id"=> $_SESSION["user_id"],
         ];
-        $sql = "INSERT INTO experiencias (id,nome,data_ini,data_fin,empresa,funcao,descricao,tecnologia,user_id) VALUES (null,?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO experiencias (id,nome,data_ini,data_fin,empresa,funcao,descricao,user_id) VALUES (null,?,?,?,?,?,?,?)";
         $stmt = $conexao->prepare($sql);
-        $stmt->execute(array($nome_experiencia,$data_ini_curso,$data_fim_curso,$empresa,$funcao,$descricao_experiencia,$tecno_experiencia,$objResponse['user_id']));
+        $stmt->execute(array($nome_experiencia,$data_ini_curso,$data_fim_curso,$empresa,$funcao,$descricao_experiencia,$objResponse['user_id']));
 
 
         // Exemplo: Enviar uma resposta JSON
@@ -104,14 +102,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $objResponse = [
             "id_curso" => $id_curso,
             "nome_det_curso"=>$nome_det_curso,
-            "tecno_det_curso"=>$tecno_det_curso,
             "descricao_det_curso"=>$descricao_det_curso,
             "link_certificado_det_curso"=>$link_certificado_det_curso,
             "user_id"=> $_SESSION["user_id"],
         ];
-        $sql = "INSERT INTO detalhes_cursos (id,nome,descricao,user_id) VALUES (null,?,?,?)";
+        $sql = "INSERT INTO detalhes_cursos (id,id_curso,nome,descricao,link_certificado,user_id) VALUES (null,?,?,?,?)";
         $stmt = $conexao->prepare($sql);
-        $stmt->execute(array($id_curso,$nome_det_curso,$tecno_det_curso,$descricao_det_curso,$link_certificado_det_curso,$objResponse['user_id']));
+        $stmt->execute(array($id_curso,$nome_det_curso,$descricao_det_curso,$link_certificado_det_curso,$objResponse['user_id']));
 
 
         // Exemplo: Enviar uma resposta JSON
@@ -124,7 +121,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         // Exemplo: Obter dados do formulário
         $data_curso = $data->data_curso;
         $nome_curso = $data->nome_curso;
-        $tecnoCurso = $data->tecnologia_curso;
         $plataforma = $data->plataforma_estudo;
         $link_certificado = $data->link_certificado;
 
@@ -159,3 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     echo json_encode(['status' => 'error', 'message' => 'Método de requisição inválido.']);
 }
 ?>
+
+
+<!-- Criar tecnologias independentes para salvar -->
+<!-- Criar uma lista de tecnologias para os campos já existentes, um lugar reservado apenas para cadastro de tecnologias -->
